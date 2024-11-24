@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul scientifique pour physique</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="ph.css">
+</head>
+<style>
+    .navbar-gradient {
+        background: linear-gradient(to right, #071d9b, #8aa214); 
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-gradient">
+
+
+
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="statistique.html">Accueil</a>
+                </li>
+                <a class="navbar-brand" href="index.html">Fonctionnalités</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">À propos</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <h3 id="ti">Calcul scientifique pour physique</h3>  
+    <div class="container">
+        <h1 class="text-center">Force Électrostatique (Loi de Coulomb)</h1>
+        <form id="coulombForm">
+            <div class="form-group">
+                <label for="charge1">Charge \( q_1 \) (en Coulombs) :</label>
+                <input type="number" class="form-control" id="charge1" placeholder="Ex : 1e-6" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="charge2">Charge \( q_2 \) (en Coulombs) :</label>
+                <input type="number" class="form-control" id="charge2" placeholder="Ex : 2e-6" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="distance">Distance \( r \) (en mètres) :</label>
+                <input type="number" class="form-control" id="distance" placeholder="Ex : 0.05" step="any" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculer</button>
+        </form>
+        <h2 class="mt-4">Résultat : <span id="result">-</span> N</h2>
+    </div>
+
+    <script>
+        document.getElementById('coulombForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const k = 8.987e9; // Constante de Coulomb
+            const q1 = parseFloat(document.getElementById('charge1').value);
+            const q2 = parseFloat(document.getElementById('charge2').value);
+            const r = parseFloat(document.getElementById('distance').value);
+
+            if (r <= 0) {
+                alert("La distance doit être supérieure à zéro.");
+                return;
+            }
+
+            const F = k * Math.abs(q1 * q2) / Math.pow(r, 2);
+            document.getElementById('result').textContent = F.toFixed(2);
+        });
+    </script>
+    <div class="container">
+        <h1 class="text-center">Travail d'un Gaz Parfait (Isotherme)</h1>
+        <form id="thermoForm">
+            <div class="form-group">
+                <label for="moles">Nombre de moles \( n \) :</label>
+                <input type="number" class="form-control" id="moles" placeholder="Ex : 1.5" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="temperature">Température \( T \) (en Kelvin) :</label>
+                <input type="number" class="form-control" id="temperature" placeholder="Ex : 298" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="volumeInitial">Volume Initial \( V_i \) (en \( m^3 \)) :</label>
+                <input type="number" class="form-control" id="volumeInitial" placeholder="Ex : 0.01" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="volumeFinal">Volume Final \( V_f \) (en \( m^3 \)) :</label>
+                <input type="number" class="form-control" id="volumeFinal" placeholder="Ex : 0.05" step="any" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculer</button>
+        </form>
+        <h2 class="mt-4">Résultat : <span id="thermoResult">-</span> Joules</h2>
+    </div>
+
+    <script>
+        document.getElementById('thermoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const R = 8.314; // Constante universelle des gaz parfaits
+            const n = parseFloat(document.getElementById('moles').value);
+            const T = parseFloat(document.getElementById('temperature').value);
+            const Vi = parseFloat(document.getElementById('volumeInitial').value);
+            const Vf = parseFloat(document.getElementById('volumeFinal').value);
+
+            if (Vi <= 0 || Vf <= 0) {
+                alert("Les volumes doivent être supérieurs à zéro.");
+                return;
+            }
+
+            const W = n * R * T * Math.log(Vf / Vi);
+            document.getElementById('thermoResult').textContent = W.toFixed(2);
+        });
+    </script>
+
+    <div class="container">
+        <h1 class="text-center">Calcul de l'Énergie Cinétique</h1>
+        <form id="kineticForm">
+            <div class="form-group">
+                <label for="mass">Masse \( m \) (en kilogrammes) :</label>
+                <input type="number" class="form-control" id="mass" placeholder="Ex : 50" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="velocity">Vitesse \( v \) (en \( m/s \)) :</label>
+                <input type="number" class="form-control" id="velocity" placeholder="Ex : 10" step="any" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculer</button>
+        </form>
+        <h2 class="mt-4">Résultat : <span id="kineticResult">-</span> Joules</h2>
+    </div>
+
+    <script>
+        document.getElementById('kineticForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const m = parseFloat(document.getElementById('mass').value);
+            const v = parseFloat(document.getElementById('velocity').value);
+
+            if (m <= 0 || v <= 0) {
+                alert("La masse et la vitesse doivent être supérieures à zéro.");
+                return;
+            }
+
+            const Ek = 0.5 * m * Math.pow(v, 2);
+            document.getElementById('kineticResult').textContent = Ek.toFixed(2);
+        });
+    </script>
+    <div class="container">
+        <h1 class="text-center">Calcul des Transitions Énergétiques</h1>
+        <p>
+            Calculez l'énergie d'un électron dans un atome d'hydrogène et la longueur d'onde du photon émis ou absorbé lors d'une transition.
+        </p>
+        <form id="quantumForm">
+            <div class="form-group">
+                <label for="n1">Niveau quantique initial \( n_1 \) (entier positif) :</label>
+                <input type="number" class="form-control" id="n1" placeholder="Ex : 2" min="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="n2">Niveau quantique final \( n_2 \) (entier positif) :</label>
+                <input type="number" class="form-control" id="n2" placeholder="Ex : 1" min="1" step="1" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculer</button>
+        </form>
+        <h2 class="mt-4">Résultats :</h2>
+        <ul>
+            <li><strong>Énergie initiale \( E_{n_1} \) :</strong> <span id="energy1">-</span> eV</li>
+            <li><strong>Énergie finale \( E_{n_2} \) :</strong> <span id="energy2">-</span> eV</li>
+            <li><strong>Variation d'énergie \( |\Delta E| \) :</strong> <span id="deltaE">-</span> eV</li>
+            <li><strong>Longueur d'onde \( \lambda \) :</strong> <span id="wavelength">-</span> nm</li>
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('quantumForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const n1 = parseInt(document.getElementById('n1').value);
+            const n2 = parseInt(document.getElementById('n2').value);
+
+            if (n1 <= 0 || n2 <= 0) {
+                alert("Les niveaux quantiques doivent être des entiers positifs.");
+                return;
+            }
+
+            if (n1 === n2) {
+                alert("Les niveaux quantiques doivent être différents pour une transition.");
+                return;
+            }
+
+            // Constantes
+            const h = 6.626e-34; // Constante de Planck (J.s)
+            const c = 3e8;       // Vitesse de la lumière (m/s)
+            const eV_to_J = 1.602e-19; // Conversion 1 eV -> Joules
+
+            // Calculs
+            const energy1 = -13.6 / Math.pow(n1, 2); // Énergie initiale (eV)
+            const energy2 = -13.6 / Math.pow(n2, 2); // Énergie finale (eV)
+            const deltaE = Math.abs(energy1 - energy2); // Variation d'énergie (eV)
+
+            // Conversion de \Delta E en Joules
+            const deltaE_J = deltaE * eV_to_J;
+
+            // Calcul de la longueur d'onde (m)
+            const wavelength_m = (h * c) / deltaE_J;
+
+            // Conversion de la longueur d'onde en nanomètres (nm)
+            const wavelength_nm = wavelength_m * 1e9;
+
+            // Affichage des résultats
+            document.getElementById('energy1').textContent = energy1.toFixed(2);
+            document.getElementById('energy2').textContent = energy2.toFixed(2);
+            document.getElementById('deltaE').textContent = deltaE.toFixed(2);
+            document.getElementById('wavelength').textContent = wavelength_nm.toFixed(2);
+        });
+    </script>
+    <div class="container">
+        <h1 class="text-center">Calculs en Plasma</h1>
+        <p>Calculez la fréquence de plasma et la conductivité d'un plasma à partir des paramètres fournis.</p>
+        <form id="plasmaForm">
+            <div class="form-group">
+                <label for="density">Densité d'électrons (\( n_e \)) en \( \text{m}^{-3} \) :</label>
+                <input type="number" class="form-control" id="density" placeholder="Ex : 1e19" required>
+            </div>
+            <div class="form-group">
+                <label for="relaxationTime">Temps de relaxation (\( \tau \)) en secondes :</label>
+                <input type="number" class="form-control" id="relaxationTime" placeholder="Ex : 1e-10" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculer</button>
+        </form>
+        <h2 class="mt-4">Résultats :</h2>
+        <ul>
+            <li><strong>Fréquence de Plasma (\( \omega_p \)) :</strong> <span id="plasmaFrequency">-</span> Hz</li>
+            <li><strong>Conductivité du Plasma (\( \sigma \)) :</strong> <span id="conductivity">-</span> S/m</li>
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('plasmaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Récupérer la densité d'électrons et le temps de relaxation
+            const density = parseFloat(document.getElementById('density').value);
+            const relaxationTime = parseFloat(document.getElementById('relaxationTime').value);
+            
+            // Vérification de la validité des valeurs
+            if (isNaN(density) || density <= 0 || isNaN(relaxationTime) || relaxationTime <= 0) {
+                alert("Veuillez entrer des valeurs valides.");
+                return;
+            }
+
+            // Constantes
+            const e = 1.602e-19; // Charge de l'électron en C
+            const epsilon0 = 8.854e-12; // Permittivité du vide en F/m
+            const me = 9.109e-31; // Masse de l'électron en kg
+
+            // Calcul de la fréquence de plasma (en rad/s)
+            const plasmaFrequency = Math.sqrt((density * e ** 2) / (epsilon0 * me));
+
+            // Calcul de la conductivité (en S/m)
+            const conductivity = (density * e ** 2 * relaxationTime) / me;
+
+            // Conversion de la fréquence de plasma en Hz (en divisant par 2π)
+            const plasmaFrequencyHz = plasmaFrequency / (2 * Math.PI);
+
+            // Affichage des résultats
+            document.getElementById('plasmaFrequency').textContent = plasmaFrequencyHz.toExponential(3) + " Hz";
+            document.getElementById('conductivity').textContent = conductivity.toExponential(3) + " S/m";
+        });
+    </script>
+    <div class="container">
+        <h1 class="text-center">Calculs en Électrocinétique</h1>
+        <p>Calculez l'intensité du courant et la puissance électrique selon la loi d'Ohm.</p>
+        <form id="electroForm">
+            <div class="form-group">
+                <label for="voltage">Tension (U) en Volts :</label>
+                <input type="number" class="form-control" id="voltage" placeholder="Ex : 12" required>
+            </div>
+            <div class="form-group">
+                <label for="resistance">Résistance (R) en Ohms :</label>
+                <input type="number" class="form-control" id="resistance" placeholder="Ex : 100" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculer</button>
+        </form>
+        <h2 class="mt-4">Résultats :</h2>
+        <ul>
+            <li><strong>Intensité (I) :</strong> <span id="current">-</span> A</li>
+            <li><strong>Puissance (P) :</strong> <span id="power">-</span> W</li>
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('electroForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const U = parseFloat(document.getElementById('voltage').value);
+            const R = parseFloat(document.getElementById('resistance').value);
+
+            if (R <= 0) {
+                alert("La résistance doit être positive.");
+                return;
+            }
+
+            const I = U / R; // Intensité
+            const P = U * I; // Puissance
+
+            document.getElementById('current').textContent = I.toFixed(2);
+            document.getElementById('power').textContent = P.toFixed(2);
+        });
+    </script>
+
+</body>
+</html>
